@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blogs</title>
+    <style>
+        /* Общие стили для страницы */
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f0f0f5;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        h1 {
+            font-size: 3rem;
+            color: #2c3e50;
+            margin-top: 40px;
+            letter-spacing: 2px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #3498db;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #2980b9;
+        }
+
+        /* Стили кнопки создания блога */
+        .create-btn {
+            display: inline-block;
+            margin-bottom: 30px;
+            padding: 12px 24px;
+            background: linear-gradient(45deg, #6a82fb, #fc5c7d);
+            color: white;
+            border-radius: 50px;
+            font-size: 1rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .create-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Основные стили списка и карточек */
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            width: 100%;
+            max-width: 900px;
+        }
+
+        li {
+            background-color: white;
+            margin-bottom: 20px;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease;
+        }
+
+        li:hover {
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin: 0 0 10px 0;
+            color: #2c3e50;
+        }
+
+        p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #7f8c8d;
+            word-break: break-word;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            -moz-line-clamp: 2;
+            -ms-line-clamp: 2;
+            line-clamp: 2;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: 1.5; 
+            max-height: calc(1.5em * 2); 
+        }
+
+        /* Стили изображения */
+        img {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            border-radius: 10px;
+            margin: 20px 0;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Кнопки редактирования и удаления */
+        .edit-btn, .delete-btn {
+            display: inline-block;
+            margin-right: 10px;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 1rem;
+            color: white;
+            transition: background 0.3s ease;
+            cursor: pointer;
+        }
+
+        .edit-btn {
+            background-color: #27ae60;
+        }
+
+        .edit-btn:hover {
+            background-color: #229954;
+        }
+
+        .delete-btn {
+            background-color: #e74c3c;
+            border: none;
+        }
+
+        .delete-btn:hover {
+            background-color: #c0392b;
+        }
+
+        form {
+            display: inline-block;
+        }
+        
+        /* .container {
+            word-break: break-word;
+    } */
+    </style>
+</head>
+<body>
+    <h1>Blog Posts</h1>
+    <a class="create-btn" href="{% url 'create' %}">Create New Blog</a>
+    <ul>
+        {% for blog in blogs %}
+        <li>
+            <h2><a href="{% url 'retrieve' blog.id %}">{{ blog.title }}</a></h2>
+            <p>{{ blog.description|truncatewords:20 }}</p>
+            <img src="{{ blog.image.url }}" alt="Blog image">
+            <a class="edit-btn" href="{% url 'update' blog.id %}">Edit</a>
+            <form action="{% url 'delete' blog.id %}" method="POST">
+                {% csrf_token %}
+                <button class="delete-btn" type="submit">Delete</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

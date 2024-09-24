@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Blog</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-top: 30px;
+            color: #2c3e50;
+        }
+
+        form {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-size: 1.2rem;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+
+        input[type="text"], textarea, input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 1rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        textarea {
+            height: 150px;
+            resize: vertical;
+        }
+
+        button {
+            padding: 12px 20px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        a {
+            margin-top: 20px;
+            font-size: 1rem;
+            color: #3498db;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            text-align: center;
+        }
+
+        a:hover {
+            color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <h1>Create a Blog Post</h1>
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="title">Title:</label>
+        <input type="text" name="title" required>
+
+        <label for="description">Description:</label>
+        <textarea name="description" required></textarea>
+
+        <label for="image">Image:</label>
+        <input type="file" name="image" required>
+
+        <button type="submit">Create</button>
+    </form>
+    <a href="{% url 'index' %}">Go Back</a>
+</body>
+</html>

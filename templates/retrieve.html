@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ blogs.title }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        h1, h2 {
+            color: #2c3e50;
+        }
+        img {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        p {
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        a {
+            display: inline-block;
+            padding: 10px 15px;
+            margin-right: 10px;
+            background-color: #3498db;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+        a:hover {
+            background-color: #2980b9;
+        }
+        form {
+            margin-top: 20px;
+        }
+        textarea {
+            width: 100%;
+            max-width: 600px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #2ecc71;
+        }
+        .comment-box {
+            background-color: #fff;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .comment-box strong {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .no-comments {
+            font-style: italic;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <!-- Заголовок блога -->
+    <h1>{{ blogs.title }}</h1>
+
+    <!-- Описание блога -->
+    <p>{{ blogs.description }}</p>
+
+    <!-- Изображение блога -->
+    <img src="{{ blogs.image.url }}" alt="Blog image">
+    
+    <!-- Ссылки на возврат и редактирование -->
+    <div>
+        <a href="{% url 'index' %}">Back to Blogs</a>
+        <a href="{% url 'update' blogs.id %}">Edit</a>
+    </div>
+
+    <!-- Форма для добавления комментария -->
+    <h2>Leave a Comment</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <textarea name="text" rows="5" cols="40" placeholder="Write your comment..."></textarea><br>
+        <button type="submit" name="comment">Submit Comment</button>
+    </form>
+
+    <!-- Отображение ошибок -->
+    {% if messages %}
+        <div>
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <!-- Список комментариев -->
+    <h2>Comments</h2>
+    {% for comment in blogs.comments.all %}
+        <div class="comment-box">
+            <p><strong>{{ comment.text }}</strong></p>
+            <p>Posted on {{ comment.created_at }}</p>
+        </div>
+    {% empty %}
+        <p class="no-comments">No comments yet.</p>
+    {% endfor %}    
+</body>
+</html>
