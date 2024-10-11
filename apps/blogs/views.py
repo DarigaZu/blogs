@@ -7,7 +7,7 @@ from apps.comments.models import Comment
 
 def homepage(request):
     blogs = Blog.objects.all()
-    return render(request, 'index.html', locals())
+    return render(request, 'blogs/index.html', locals())
 
 def create(request):
     if request.method == 'POST':
@@ -18,7 +18,7 @@ def create(request):
         blog_create = Blog.objects.create(author = request.user, title = title, description = description, image = image)
         return redirect('index') 
     
-    return render(request, 'create.html')
+    return render(request, 'blogs/create.html')
 
 def retrieve(request, pk):
     blogs = Blog.objects.get(id=pk)
@@ -30,7 +30,7 @@ def retrieve(request, pk):
                 return redirect('retrieve', blogs.id)
             except Exception as e:
                 messages.error(request, e)
-    return render(request, 'retrieve.html', locals())
+    return render(request, 'blogs/retrieve.html', locals())
 
 
 def update(request, pk):
@@ -48,7 +48,7 @@ def update(request, pk):
 
         return redirect('retrieve', pk=pk) 
 
-    return render(request, 'update.html', {'blog': blog})
+    return render(request, 'blogs/update.html', {'blog': blog})
 
 
 def delete(request, pk):
@@ -57,7 +57,7 @@ def delete(request, pk):
         blog.delete()
         return redirect('index')
     
-    return render(request, 'delete.html')
+    return render(request, 'blogs/delete.html')
 
 
 

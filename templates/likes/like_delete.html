@@ -1,0 +1,18 @@
+<!-- templates/likes/like_delete.html -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Удалить Лайк</title>
+</head>
+<body>
+    <h1>Удалить Лайк</h1>
+    <p>Вы уверены, что хотите удалить лайк от {{ like.user.username }} на пост "{{ like.blog.title }}"?</p>
+    <form action="{% url 'like_delete' like.id %}" method="POST">
+        {% csrf_token %}
+        <button type="submit">Да, удалить лайк</button>
+    </form>
+    <a href="{% url 'like_list' %}">Нет, вернуться к списку лайков</a>
+</body>
+</html>

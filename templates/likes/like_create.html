@@ -1,0 +1,21 @@
+<!-- templates/likes/like_create.html -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лайкнуть Пост</title>
+</head>
+<body>
+    <h1>Лайкнуть Пост "{{ blog.title }}"</h1>
+    <p>{{ blog.description }}</p>
+    <img src="{{ blog.image.url }}" alt="{{ blog.title }}" style="max-width: 300px;">
+
+    <form action="{% url 'like_create' blog.id %}" method="POST">
+        {% csrf_token %}
+        <button type="submit">Лайкнуть этот пост</button>
+    </form>
+
+    <a href="{% url 'like_list' %}">Назад к списку лайков</a>
+</body>
+</html>

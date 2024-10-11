@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Редактировать Тег</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h1 { color: #333; }
+        form { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 5px; }
+        input[type="text"] { width: 100%; padding: 8px; margin-bottom: 10px; }
+        button { padding: 10px 15px; background-color: #007bff; color: white; border: none; cursor: pointer; }
+        button:hover { background-color: #0056b3; }
+    </style>
+</head>
+<body>
+    <h1>Редактировать Тег</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <label for="title">Название тега:</label>
+        <input type="text" id="title" name="title" value="{{ tag.title }}" required>
+        <button type="submit">Сохранить изменения</button>
+    </form>
+    <a href="{% url 'tag_list' %}">Назад к списку тегов</a>
+</body>
+</html>
+    

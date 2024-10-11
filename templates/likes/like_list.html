@@ -1,0 +1,31 @@
+<!-- templates/likes/like_list.html -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список Лайков</title>
+</head>
+<body>
+    <h1>Список Лайков</h1>
+    <ul>
+        {% for like in likes %}
+            <li>
+                {{ like.user.username }} лайкнул пост "{{ like.blog.title }}"
+                <form action="{% url 'like_delete' like.id %}" method="POST" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit">Удалить лайк</button>
+                </form>
+            </li>
+        {% empty %}
+            <li>Нет лайков.</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Лайкнуть пост</h2>
+    <form action="{% url 'like_create' blog_id=blog.id %}" method="POST">
+        {% csrf_token %}
+        <button type="submit">Лайкнуть этот пост</button>
+    </form>
+</body>
+</html>

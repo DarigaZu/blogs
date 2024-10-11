@@ -1,0 +1,19 @@
+<!-- templates/likes/like_update.html -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Обновить Лайк</title>
+</head>
+<body>
+    <h1>Обновить Лайк</h1>
+    <form action="{% url 'like_update' like.id %}" method="POST">
+        {% csrf_token %}
+        <label for="title">Название:</label>
+        <input type="text" name="title" id="title" value="{{ like.title }}">
+        <button type="submit">Сохранить</button>
+    </form>
+    <a href="{% url 'like_list' %}">Назад к списку лайков</a>
+</body>
+</html>
